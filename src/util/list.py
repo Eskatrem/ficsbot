@@ -1,11 +1,10 @@
 class List:
 
-    def __init__(self, key, list, description=None):
+    def __init__(self, key, listid, description="No description provided."):
         self.key = key
-        self.list = list
+        self.listid = listid
         self.description = description
-        if not bool(self.description):
-            self.description = "List of all".format(key)
-
-    def getPlayers(self):
         self.players = {}
+
+    def getplayers(self):
+        return self.players
