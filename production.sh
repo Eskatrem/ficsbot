@@ -1,4 +1,4 @@
-# /bin/bash
+#!/usr/bin/env bash
 
 echo "Changing config_production.yaml to config.yaml"
 
