@@ -1,5 +1,4 @@
 class pref:
-
     def execute(self, command, arg, user):
         getattr(self, command)(arg=arg, user=user)
 
