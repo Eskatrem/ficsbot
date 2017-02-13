@@ -33,6 +33,16 @@ class ConfigLoader:
 
         return self.commands
 
+    def getlists(self):
+        if not self.valid:
+            return
+
+        _lists = self.config.get("lists")
+
+        for _list in _lists:
+            _key = _list.get("key")
+            _listID
+
     def validate(self):
         # standard format:
         # * indicates not obligatory items
@@ -51,7 +61,7 @@ class ConfigLoader:
         # lists:
         #   - list:
         #       key: "listname"
-        #       list: "FICS list indicator (e.x. =noplay)
+        #       listid: "FICS list identifier (e.x. noplay for =noplay)
         #       *description: "description text"
         #   - ...
         #       ...

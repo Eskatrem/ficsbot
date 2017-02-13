@@ -41,7 +41,7 @@ lists:
   - captain:
     key: "captain"
     description: "All captains"
-    list: "=noplay"
+    listid: "noplay"
 - preferences:
   user: "chessbot"
   password: "password1234"
