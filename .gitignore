@@ -265,3 +265,5 @@ pyvenv.cfg
 .venv
 pip-selfcheck.json
 
+# Production config file. Never publish!
+config_production.yaml
