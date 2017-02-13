@@ -13,7 +13,7 @@ class ConfigLoader:
             try:
                 self.config = yaml.load(stream)
             except yaml.YAMLError as exc:
-                print(exc)
+                raise exc
 
     def getcommands(self):
         if "commands" not in self.config:
