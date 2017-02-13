@@ -1,5 +1,6 @@
 import yaml
 from util.command import Command
+from util.list import List
 
 
 class ConfigLoader:
@@ -7,6 +8,7 @@ class ConfigLoader:
         self.file = file
         self.config = None
         self.commands = {}
+        self.lists = {}
         self.pref = {}
         self.valid = False
 
@@ -29,7 +31,6 @@ class ConfigLoader:
             _controller = _command.get("controller")
             _restriction = _command.get("restriction")
             _description = _command.get("descritpion")
-            self.commands[_key] = Command(_key, _controller, _description, restriction=_restriction)
             self.commands[_key] = Command(_key, _controller, description=_description, restriction=_restriction)
 
         return self.commands
@@ -42,7 +43,11 @@ class ConfigLoader:
 
         for _list in _lists:
             _key = _list.get("key")
-            _listID
+            _listid = _list.get("listid")
+            _description = _list.get("description")
+            self.lists[_key] = List(_key, _listid, description=_description)
+
+        return self.lists
 
     def validate(self):
         # standard format:
@@ -53,7 +58,6 @@ class ConfigLoader:
         # commands:
         #   - command:
         #       key: "commandname"
-        #       restriction: "none|captain|..."
         #       *restriction: "none|captain|..."
         #       controller: "class.function"
         #       *description: "description text"
