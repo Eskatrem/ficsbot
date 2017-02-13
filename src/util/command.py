@@ -2,8 +2,7 @@ import importlib
 
 
 class Command:
-
-    def __init__(self, key, controller, description, restriction = "none"):
+    def __init__(self, key, controller, description="No description provided.", restriction = "none"):
         self.key = key
         self.controller = controller
         self.description = description

@@ -30,6 +30,7 @@ class ConfigLoader:
             _restriction = _command.get("restriction")
             _description = _command.get("descritpion")
             self.commands[_key] = Command(_key, _controller, _description, restriction=_restriction)
+            self.commands[_key] = Command(_key, _controller, description=_description, restriction=_restriction)
 
         return self.commands
 
@@ -53,6 +54,7 @@ class ConfigLoader:
         #   - command:
         #       key: "commandname"
         #       restriction: "none|captain|..."
+        #       *restriction: "none|captain|..."
         #       controller: "class.function"
         #       *description: "description text"
         #   - ...
