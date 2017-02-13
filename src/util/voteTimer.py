@@ -1,7 +1,8 @@
 from threading import Timer
+from time import time
+
 
 class VoteTimer:
-
     def __init__(self, duration, callback):
         self.running = False
         self.paused = False
@@ -49,7 +50,7 @@ class VoteTimer:
             self.ended = True
             self.callback()
 
-    def getTimeLeft(self):
+    def gettimeleft(self):
         if self.running:
             return self.duration - (time() - self.timeStarted)
         elif self.ended:
@@ -57,7 +58,7 @@ class VoteTimer:
         else:
             return self.duration
 
-    def setTime(self, time):
+    def settime(self, time):
         if self.running:
             self.pause()
 
@@ -69,17 +70,17 @@ class VoteTimer:
             self.duration = time
             self.timer = Timer(self.duration, self.callback)
 
-    def addTime(self, time):
-        self.setTime(self.getTimeLeft() + time)
+    def addtime(self, time):
+        self.settime(self.gettimeleft() + time)
 
-    def removeTime(self, time):
-        self.addTime(-time)
+    def removetime(self, time):
+        self.addtime(-time)
 
-    def isRunning(self):
+    def isrunning(self):
         return self.running
 
-    def isPaused(self):
+    def ispaused(self):
         return self.paused
 
-    def hasEnded(self):
+    def hasended(self):
         return self.ended

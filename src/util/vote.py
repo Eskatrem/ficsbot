@@ -1,5 +1,6 @@
 from voteTimer import VoteTimer
 
+
 class Vote:
     def __init__(self, duration, changeable, priority, callback):
         self._id = "id"
@@ -29,20 +30,20 @@ class Vote:
     def stop(self):
         self.timer.stop()
 
-    def getTimeLeft(self):
-        return self.timer.getTimeLeft()
+    def gettimeleft(self):
+        return self.timer.gettimeleft()
 
-    def setTime(self, time):
-        self.timer.setTime(time)
+    def settime(self, time):
+        self.timer.settime(time)
 
-    def addTime(self, time):
-        self.timer.addTime(time)
+    def addtime(self, time):
+        self.timer.addtime(time)
 
-    def removeTime(self, time):
-        self.timer.removeTime(time)
+    def removetime(self, time):
+        self.timer.removetime(time)
 
-    def addVote(self, vote, player):
-        if not self.timer.isRunning(): return
+    def addvote(self, vote, player):
+        if not self.timer.isrunning(): return
 
         if player in self.playerVotes:
             if self.playerVotes[player] == vote:
@@ -52,7 +53,7 @@ class Vote:
             if self.changeable:
                 # Delete users old vote & continue
                 _oldVote = self.playerVotes[player]
-                self.removeVote(_oldVote, player)
+                self.removevote(_oldVote, player)
             else:
                 # User can not update vote
                 print("[VOTE]: Player {0} already voted".format(player))
@@ -69,8 +70,8 @@ class Vote:
 
         print("[VOTE]: Added 1 vote to {0}".format(vote))
 
-    def removeVote(self, vote, player):
-        if not self.timer.isRunning(): return
+    def removevote(self, vote, player):
+        if not self.timer.isrunning(): return
 
         if player in self.playerVotes:
             if self.playerVotes[player] == vote:
@@ -88,13 +89,13 @@ class Vote:
                 del self.playerVotes[player]
                 print("[VOTE]: Removed {0} from list".format(player))
 
-    def clearVotes(self):
+    def clearvotes(self):
         # del self.votes
         # del self.playerVotes
         self.votes = {}
         self.playerVotes = {}
 
-    def getBest(self):
+    def getbest(self):
         if not bool(self.votes): return
 
 
@@ -113,4 +114,4 @@ class Vote:
         return _voteResult
 
     def end(self):
-        self.callback(self.getBest())
+        self.callback(self.getbest())

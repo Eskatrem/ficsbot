@@ -9,10 +9,10 @@ class POP3Telnet:
     def close(self):
         self.tel.close()
 
-    def read_data(self):
+    def readdata(self):
         return self.tel.read_some()
 
-    def read_data2(self):
+    def readdata2(self):
         return self.tel.read_very_eager()
 
     def command(self, com):
