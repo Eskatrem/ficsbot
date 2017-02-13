@@ -8,6 +8,7 @@ class ConfigLoader:
         self.config = None
         self.commands = {}
         self.pref = {}
+        self.valid = False
 
         with open(self.file) as stream:
             try:
@@ -15,9 +16,10 @@ class ConfigLoader:
             except yaml.YAMLError as exc:
                 raise exc
 
+        self.validate()
+
     def getcommands(self):
-        if "commands" not in self.config:
-            print("Could not find commands in {0}".format(self.file))
+        if not self.valid:
             return
 
         _commands = self.config.get("commands")
@@ -32,4 +34,86 @@ class ConfigLoader:
         return self.commands
 
     def validate(self):
-        return True
+        # standard format:
+        # * indicates not obligatory items
+        #
+        # -------------
+        #
+        # commands:
+        #   - command:
+        #       key: "commandname"
+        #       restriction: "none|captain|..."
+        #       controller: "class.function"
+        #       *description: "description text"
+        #   - ...
+        #       ...
+        #
+        # lists:
+        #   - list:
+        #       key: "listname"
+        #       list: "FICS list indicator (e.x. =noplay)
+        #       *description: "description text"
+        #   - ...
+        #       ...
+        #
+        # - preferences:
+        #   user: "ficsbot user name"
+        #   password: "password for fics bot"
+
+        if not bool(self.config):
+            raise Exception("No configuaration loaded.")
+
+        # Check for valid commands
+        if "commands" not in self.config:
+            raise Exception("Missing commands.")
+        else:
+            _commands = self.config.get("commands")
+            for _command in _commands:
+
+                if "key" not in _command:
+                    raise Exception("Missing key of command.")
+                elif " " in _command.get("key"):
+                    raise Exception("Spaces are not allowed in key of command.")
+
+                if "restriction" not in _command:
+                    raise Exception("Missing restriction of command.")
+                elif " " in _command.get("restriction"):
+                    raise Exception("Spaces are not allowed in restriction of command.")
+
+                if "controller" not in _command:
+                    raise Exception("Missing controller of command.")
+                elif " " in _command.get("controller"):
+                    raise Exception("Spaces are not allowed in controller of command.")
+                elif not len(_command.get("controller").split(".")) == 2:
+                    raise Exception("Controller of command has to consist of 2 strings seperated by a dot.")
+
+        # Check for valid lists
+        if "lists" not in self.config:
+            raise Exception("Missing lists.")
+        else:
+            _lists = self.config.get("lists")
+            for _list in _lists:
+
+                if "key" not in _list:
+                    raise Exception("Missing key of list.")
+                elif " " in _list.get("key"):
+                    raise Exception("Spaces are not allowed in key of list.")
+
+                if "list" not in _list:
+                    raise Exception("Missing list identifier of list.")
+                elif " " in _list.get("restriction"):
+                    raise Exception("Spaces are not allowed in list identifier of list.")
+
+        # Check for valid preferences
+        if "preferences" not in self.config:
+            raise Exception("Missing preferences.")
+        else:
+            _preferences = self.config.get("preferences")
+            if "user" not in _preferences:
+                raise Exception("Missing user name.")
+
+            if "password" not in _preferences:
+                raise Exception("Missing password of user.")
+
+        self.valid = True
+        return self.valid
