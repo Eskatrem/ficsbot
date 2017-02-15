@@ -1,8 +1,9 @@
 from voteTimer import VoteTimer
+from util.log import Log
 
 
 class Vote:
-    def __init__(self, duration, changeable, priority, callback):
+    def __init__(self, duration, changeable, priority, callback, log=Log()):
         self._id = "id"
 
         self.votes = {}
@@ -17,6 +18,8 @@ class Vote:
         self.priority = priority
         self.callback = callback
         self.timer = VoteTimer(self.duration, self.end)
+
+        self.log=log
 
     def start(self):
         self.timer.start()

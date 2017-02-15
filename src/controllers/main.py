@@ -1,7 +1,7 @@
-class main:
-    def execute(self, command, arg, user):
-        getattr(self, command)(arg=arg, user=user)
+from controllers.controller import Controller
 
+
+class Main(Controller):
     def help(self, arg, user):
         print("asked for help?")
 

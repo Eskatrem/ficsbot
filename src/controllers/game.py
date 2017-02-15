@@ -1,9 +1,9 @@
-class game:
-    def execute(self, command, arg, user):
-        getattr(self, command)(arg=arg, user=user)
+from controllers.controller import Controller
 
+
+class Game(Controller):
     def join(self, arg, user):
-        print("{0} wants to join".format(user))
+        self.log.info("{user} tires to join".format(user=user))
 
     def leave(self, arg, user):
         print("{0} wants to leave".format(user))

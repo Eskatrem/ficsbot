@@ -1,4 +1,7 @@
-class pref:
+from controllers.controller import Controller
+
+
+class Pref(Controller):
     def execute(self, command, arg, user):
         getattr(self, command)(arg=arg, user=user)
 

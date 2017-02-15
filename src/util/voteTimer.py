@@ -1,9 +1,10 @@
 from threading import Timer
 from time import time
+from util.log import Log
 
 
 class VoteTimer:
-    def __init__(self, duration, callback):
+    def __init__(self, duration, callback, log=Log()):
         self.running = False
         self.paused = False
         self.ended = False

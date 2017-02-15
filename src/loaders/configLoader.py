@@ -1,22 +1,24 @@
 import yaml
 from util.command import Command
 from util.list import List
+from util.log import Log
 
 
 class ConfigLoader:
-    def __init__(self, file="config.yaml"):
+    def __init__(self, file="config.yaml", log=Log()):
         self.file = file
         self.config = None
         self.commands = {}
         self.lists = {}
         self.pref = {}
         self.valid = False
+        self.log = log
 
         with open(self.file) as stream:
             try:
                 self.config = yaml.load(stream)
             except yaml.YAMLError as exc:
-                raise exc
+                print str(exc)
 
         self.validate()
 
@@ -31,7 +33,7 @@ class ConfigLoader:
             _controller = _command.get("controller")
             _restriction = _command.get("restriction")
             _description = _command.get("descritpion")
-            self.commands[_key] = Command(_key, _controller, description=_description, restriction=_restriction)
+            self.commands[_key] = Command(_key, _controller, description=_description, restriction=_restriction, log=self.log)
 
         return self.commands
 
@@ -45,7 +47,7 @@ class ConfigLoader:
             _key = _list.get("key")
             _listid = _list.get("listid")
             _description = _list.get("description")
-            self.lists[_key] = List(_key, _listid, description=_description)
+            self.lists[_key] = List(_key, _listid, description=_description, log=self.log)
 
         return self.lists
 
@@ -72,7 +74,7 @@ class ConfigLoader:
         #   - ...
         #       ...
         #
-        # - preferences:
+        # preferences:
         #   user: "ficsbot user name"
         #   password: "password for fics bot"
 
@@ -115,9 +117,9 @@ class ConfigLoader:
                 elif " " in _list.get("key"):
                     raise Exception("Spaces are not allowed in key of list.")
 
-                if "list" not in _list:
+                if "listid" not in _list:
                     raise Exception("Missing list identifier of list.")
-                elif " " in _list.get("restriction"):
+                elif " " in _list.get("listid"):
                     raise Exception("Spaces are not allowed in list identifier of list.")
 
         # Check for valid preferences
