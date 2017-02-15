@@ -18,7 +18,7 @@ sudo easy_install pip
 
 #### Linux
 
-If `python` is not already installed, you might want to use one of the following package managers:
+If `python` is not already installed, just do so with the package managers of your desire:
 
 **apt-get**:
 ```commandline
