@@ -44,9 +44,27 @@ pip install -r requirements.txt
 ```
 
 ### Run
-All you need is to run the following command from the parent directory:
+```text
+Usage: ./ficsbot [-h] [--quiet | --verbose] [--out=<file>]
+
+-h --help     show this
+--out=<file>  specify output file [default: ./ficsbot.log]
+-q --quiet    print less text
+-v --verbose  print more text
+```
+#### On Linux/macOS
+Make the ficsbot binary in the parent directory executable by the following command:
 ```commandline
-python src/app.py
+chmod +x ficsbot
+```
+You can now run ficsbot just by typing
+```commandline
+./ficsbot [-h] [--quiet | --verbose] [--out=<file>]
+```
+#### On Windows
+To run ficsbot on windows, just run the ficsbot python script in the `src/` directory:
+```commandline
+python src/ficsbot.py [-h] [--quiet | --verbose] [--out=<file>]
 ```
 
 ## License
