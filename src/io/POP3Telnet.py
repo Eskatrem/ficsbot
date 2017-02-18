@@ -1,27 +1,24 @@
 import telnetlib
+from util.log import Log
 
 
 class POP3Telnet:
-    def __init__(self, host, port):
+    def __init__(self, host, port, log=Log()):
         self.tel = telnetlib.Telnet(host, port)
-        print("[Telnet]: Connected!")
+        self.log = log
+        self.log.info("Connected to {host} on port {port}".format(host=host, port=port), tag="TELNET")
 
     def close(self):
         self.tel.close()
 
-    def readdata(self):
-        return self.tel.read_some()
+    def readuntil(self, string):
+        return self.tel.read_until(string)
 
-    def readdata2(self):
-        return self.tel.read_very_eager()
-
-    def command(self, com):
-        self.tel.write("{}\r\n".format(com).encode())
-        return self.read_data()
+    def command(self, msg):
+        self.tel.write("{msg}\r\n".format(msg=msg).encode())
 
     def login(self, user, password):
-        print("[Telnet]: Logging in as {}".format(user))
         self.tel.read_until(b"login: ")
         self.tel.write(user.encode('ascii') + b"\n")
         self.tel.write(password.encode('ascii') + b"\n")
-        print("[Telnet]: Logged in!")
+        self.log.info("Logged in as {user}".format(user=user), tag="TELNET")
