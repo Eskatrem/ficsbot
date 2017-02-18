@@ -5,7 +5,7 @@ from util.log import Log
 
 
 class ConfigLoader:
-    def __init__(self, file="config.yaml", log=Log()):
+    def __init__(self, log, file="config.yaml"):
         self.file = file
         self.config = None
         self.commands = {}
@@ -33,7 +33,8 @@ class ConfigLoader:
             _controller = _command.get("controller")
             _restriction = _command.get("restriction")
             _description = _command.get("descritpion")
-            self.commands[_key] = Command(_key, _controller, description=_description, restriction=_restriction, log=self.log)
+            _args = _command.get("argRequired")
+            self.commands[_key] = Command(_key, _controller, _args, description=_description, restriction=_restriction)
 
         return self.commands
 
@@ -47,9 +48,19 @@ class ConfigLoader:
             _key = _list.get("key")
             _listid = _list.get("listid")
             _description = _list.get("description")
-            self.lists[_key] = List(_key, _listid, description=_description, log=self.log)
+            self.lists[_key] = List(_key, _listid, self.log, description=_description)
 
         return self.lists
+
+    def getuser(self):
+        if not self.valid:
+            return
+
+        _pref = self.config.get("preferences")
+        _user = {}
+        _user["name"] = _pref.get("user")
+        _user["password"] = _pref.get("password")
+        return _user
 
     def validate(self):
         # standard format:
