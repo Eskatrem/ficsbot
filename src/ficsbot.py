@@ -32,4 +32,3 @@ log = Log(file_source=args["--out"], quiet=args["--quiet"], verbose=args["--verb
 configLoader = ConfigLoader(file=args["--config"] ,log=log)
 commands = configLoader.getcommands()
 lists = configLoader.getlists()
-commands["join"].execute()
