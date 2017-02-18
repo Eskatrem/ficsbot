@@ -19,7 +19,7 @@ Options:
 """
 
 from docopt import docopt
-
+import sys
 from loaders.configLoader import ConfigLoader
 from util.log import Log
 
@@ -29,6 +29,6 @@ args = docopt(__doc__, version="ficsbot 0.2")
 
 log = Log(file_source=args["--out"], quiet=args["--quiet"], verbose=args["--verbose"], quiet_out=args["--no-output"])
 # initial configuration load
-configLoader = ConfigLoader(file=args["--config"] ,log=log)
+configLoader = ConfigLoader(file=args["--config"], log=log)
 commands = configLoader.getcommands()
 lists = configLoader.getlists()

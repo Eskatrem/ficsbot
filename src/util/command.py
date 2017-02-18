@@ -3,12 +3,12 @@ from util.log import Log
 
 
 class Command:
-    def __init__(self, key, controller, description="No description provided.", restriction = "none", log=Log()):
+    def __init__(self, key, controller, description="No description provided.", restriction="none", log=Log()):
         self.key = key
         self.controller = controller
         self.description = description
         self.restriction = restriction
-        self.log = log
+        self.lists={}
 
         _controllerDir = self.controller.split(".")
         _moduleName = _controllerDir[0]
