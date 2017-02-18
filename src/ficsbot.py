@@ -19,16 +19,33 @@ Options:
 """
 
 from docopt import docopt
-import sys
+from io.POP3Telnet import POP3Telnet
 from loaders.configLoader import ConfigLoader
 from util.log import Log
+import sys
 
 
 # initialize docopt for argument parsing
 args = docopt(__doc__, version="ficsbot 0.2")
-
 log = Log(file_source=args["--out"], quiet=args["--quiet"], verbose=args["--verbose"], quiet_out=args["--no-output"])
 # initial configuration load
-configLoader = ConfigLoader(file=args["--config"], log=log)
-commands = configLoader.getcommands()
+configLoader = ConfigLoader(log, file=args["--config"])
+
+user = configLoader.getuser()
+pop = POP3Telnet("freechess.org", 5000, log=log)
+pop.login(user["name"], user["password"])
+
 lists = configLoader.getlists()
+commands = configLoader.getcommands()
+
+while True:
+    data = pop.readuntil("\n").split("(21): /")
+
+    if data[1:]:
+        _user = data[0].replace("\r", "").replace("\n", "")
+        _msg = data[1].replace("\r", "").replace("\n", "").split(" ")
+        _cmd = _msg[0]
+        _arg = _msg[1:]
+
+        if _cmd in commands:
+           commands[_cmd].execute(_user, log, lists, pop, arg=_arg)
