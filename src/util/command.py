@@ -18,7 +18,7 @@ class Command:
 
     def execute(self, user, log, lists, telnet, arg=None):
         if "none" not in self.restriction:
-            if user not in lists[self.restriction].getusers(telnet):
+            if user not in lists[self.restriction].get_users(telnet):
                 log.warn("{user} is not permitted to use {cmd}".format(user=user, cmd=self.controllerName), tag="command")
                 return
 
