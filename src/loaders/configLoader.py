@@ -1,3 +1,19 @@
+"""
+FICS Bot
+---------
+by schachbjm, Kevin Schaefer and Joans Drotleff
+https://github.com/jonas-drotleff/ficsbot
+---------
+
+usage: tell {user} /command args
+
+Commands:
+{cmds}
+
+Lists:
+{lists}
+
+"""
 import yaml
 from util.command import Command
 from util.list import List
@@ -13,6 +29,7 @@ class ConfigLoader:
         self.pref = {}
         self.valid = False
         self.log = log
+        self.help = __doc__
 
         with open(self.file) as stream:
             try:
@@ -61,6 +78,10 @@ class ConfigLoader:
         _user["name"] = _pref.get("user")
         _user["password"] = _pref.get("password")
         return _user
+
+    def get_help(self):
+        # TODO prepare self.help
+        return self.help
 
     def validate(self):
         # standard format:
