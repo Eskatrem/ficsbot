@@ -11,9 +11,6 @@ class POP3Telnet:
     def close(self):
         self.tel.close()
 
-    def readuntil(self, string):
-        return self.tel.read_until(string)
-
     def write(self, msg):
         self.tel.write("{msg}\r\n".format(msg=msg).encode())
 
