@@ -1,4 +1,3 @@
-from docopt import docopt
 from util.log import Log
 
 
