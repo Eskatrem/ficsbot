@@ -2,14 +2,17 @@ from controllers.controller import Controller
 
 
 class Main(Controller):
+    @staticmethod
     def help(self, arg, user, lists, log, telnet):
-        print("asked for help?")
+        telnet.tell(user, "")
 
+    @staticmethod
     def commands(self, arg, user, lists, log, telnet):
         # TODO read from config.yaml
         print("list all commands")
 
+    @staticmethod
     def list(self, arg, user, lists, log, telnet):
         if bool(arg):
-            list = ", ".join(map(str, lists[arg[0]].getusers(telnet)))
-            telnet.command("tell {user} {list}".format(user=user, list=list))
+            list = ", ".join(map(str, lists[arg[0]].get_users(telnet)))
+            telnet.write("tell {user} {list}".format(user=user, list=list))
