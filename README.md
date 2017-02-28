@@ -61,19 +61,9 @@ optional arguments:
 ```
 
 `ficsbot` is a commandline tool. With the provided options, you can change it's behaviour.
-But running `ficsbot` without any options should be sufficient in most cases.
+But running `ficsbot` without any options should be sufficient in most cases.  
 
-#### On Linux/macOS
-Make the ficsbot script in the parent directory executable with the following command:
-```commandline
-chmod +x ficsbot
-```
-You can now run ficsbot just by typing
-```commandline
-./ficsbot [--quiet | --verbose] [--log-file=<file> | --no-log] [--config-file=<file>]
-```
-#### On Windows
-To run ficsbot on windows, just run the ficsbot python script in the `src/` directory:
+To run ficsbot, just run the ficsbot python script in the `src/` directory:
 ```commandline
 python src/ficsbot.py [--quiet | --verbose] [--log-file=<file> | --no-log] [--config-file=<file>
 ```
