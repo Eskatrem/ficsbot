@@ -64,7 +64,7 @@ optional arguments:
 But running `ficsbot` without any options should be sufficient in most cases.
 
 #### On Linux/macOS
-Make the ficsbot binary in the parent directory executable by the following command:
+Make the ficsbot script in the parent directory executable with the following command:
 ```commandline
 chmod +x ficsbot
 ```
