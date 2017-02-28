@@ -1,51 +1,62 @@
+---
 commands:
   - help:
     key: "help"
     restriction: "none"
     controller: "main.help"
     description: "Print help message"
+
   - commands:
     key: "commands"
     restriction: "none"
     controller: "main.commands"
     description: "Get a overview of possible commands"
+
   - list:
     key: "list"
     restriction: "none"
     argRequired: true
     controller: "main.list"
     description: "List members of various roles (e.g. captain, player, etc.)"
+
   - join:
     key: "join"
     restriction: "none"
     controller: "game.join"
     description: "Join the game"
+
   - leave:
     key: "leave"
     restriction: "none"
     controller: "game.leave"
     description: "Leave the game"
+
   - vote:
     key: "vote"
     restriction: "none"
     argRequired: true
     controller: "game.vote"
     description: "Vote for an option (e.g. e4, yes/no or wait/go)"
+
   - addCaptain:
     key: "addCaptain"
     restriction: "captain"
     argRequired: true
     controller: "pref.addCaptain"
     description: "Add a captain to the captain list"
+
 lists:
   - captain:
     key: "captain"
     description: "All captains"
     listid: "noplay"
+
   - player:
     key: "player"
     description:  "All players"
     listid: "notify"
+
 preferences:
   user: "chessbot"
   password: "password1234"
+  channel: "21"
