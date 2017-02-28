@@ -3,13 +3,16 @@ from util.log import Log
 
 
 class POP3Telnet:
-    def __init__(self, host, port, log=Log()):
+    def __init__(self, host, port):
         self.tel = telnetlib.Telnet(host, port)
-        self.log = log
+        self.log = Log()
         self.log.info("Connected to {host} on port {port}".format(host=host, port=port), tag="TELNET")
 
     def close(self):
         self.tel.close()
+
+    def read_line(self):
+        return self.tel.read_until("\n")
 
     def write(self, msg):
         self.tel.write("{msg}\r\n".format(msg=msg).encode())

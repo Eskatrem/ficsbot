@@ -1,35 +1,33 @@
 """
-FICS Bot
----------
-by schachbjm, Kevin Schaefer and Joans Drotleff
-https://github.com/jonas-drotleff/ficsbot
----------
+--- Fics Bot {version} ---
+- Made by schachbjm, Kevin Schaefer and Jonas Drotleff
 
-usage: tell {user} /command args
+Usage:
+    tell {channel} /command [args]
 
-Commands:
-{cmds}
+{commands}
 
-Lists:
 {lists}
-
 """
+
 import yaml
+from loaders.version import version
 from util.command import Command
 from util.list import List
 from util.log import Log
+from util.parsearg import PasrseArg
 
 
 class ConfigLoader:
-    def __init__(self, log, file="config.yaml"):
-        self.file = file
+    def __init__(self, ):
+        args = PasrseArg()
+        self.file = args.get_config_file()
         self.config = None
         self.commands = {}
         self.lists = {}
         self.pref = {}
         self.valid = False
-        self.log = log
-        self.help = __doc__
+        self.log = Log()
 
         with open(self.file) as stream:
             try:
@@ -39,7 +37,7 @@ class ConfigLoader:
 
         self.validate()
 
-    def getcommands(self):
+    def get_commands(self):
         if not self.valid:
             return
 
@@ -55,7 +53,7 @@ class ConfigLoader:
 
         return self.commands
 
-    def getlists(self):
+    def get_lists(self):
         if not self.valid:
             return
 
@@ -65,11 +63,18 @@ class ConfigLoader:
             _key = _list.get("key")
             _listid = _list.get("listid")
             _description = _list.get("description")
-            self.lists[_key] = List(_key, _listid, self.log, description=_description)
+            self.lists[_key] = List(_key, _listid, description=_description)
 
         return self.lists
 
-    def getuser(self):
+    def get_channel(self):
+        if not self.valid:
+            return
+
+        _pref = self.config.get("preferences")
+        return _pref.get("channel")
+
+    def get_user(self):
         if not self.valid:
             return
 
@@ -79,9 +84,58 @@ class ConfigLoader:
         _user["password"] = _pref.get("password")
         return _user
 
+    def get_command_help(self):
+        if not self.valid:
+            return
+
+        cmd_keys = []
+        cmd_descriptions = []
+        commands = "Commands:\n"
+        _commands = self.config.get("commands")
+        for _command in _commands:
+            cmd_keys.append(_command.get("key"))
+            cmd_descriptions.append(_command.get("description"))
+
+        _space_length = len(max(cmd_keys, key=len)) + 4
+
+        for i in xrange(len(cmd_keys)):
+            key = cmd_keys[i]
+            space = _space_length - len(key)
+            desc = cmd_descriptions[i]
+            commands += "    {key}{space}{description}\n".format(key=key, space=space, description=desc)
+
+        return commands
+
+    def get_list_help(self):
+        if not self.valid:
+            return
+
+        list_keys = []
+        list_descriptions = []
+        lists = "Lists:\n"
+        _lists = self.config.get("commands")
+        for _list in _lists:
+            list_keys.append(_list.get("key"))
+            list_descriptions.append(_list.get("description"))
+
+        _space_length = len(max(list_keys, key=len)) + 4
+
+        for i in xrange(len(list_keys)):
+            key = list_keys[i]
+            space = _space_length - len(key)
+            desc = list_descriptions[i]
+            lists += "    {key}{space}{description}\n".format(key=key, space=space, description=desc)
+
     def get_help(self):
-        # TODO prepare self.help
-        return self.help
+        if not self.valid:
+            return
+
+        _help = __doc__
+        _help.format(version=version(),
+                     channel=self.get_channel(),
+                     commands=self.get_command_help(),
+                     lists=self.get_list_help())
+        return _help
 
     def validate(self):
         # standard format:
@@ -164,6 +218,9 @@ class ConfigLoader:
 
             if "password" not in _preferences:
                 raise Exception("Missing password of user.")
+
+            if "channel" not in _preferences:
+                raise Exception("Missing channel.")
 
         self.valid = True
         return self.valid

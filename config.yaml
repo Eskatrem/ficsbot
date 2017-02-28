@@ -12,6 +12,12 @@ commands:
     controller: "main.commands"
     description: "Get an overview of possible commands"
 
+  - lists:
+    key: "lists"
+    restriction: "none"
+    controller: "main.lists"
+    description: "Get an overview of all lists"
+
   - list:
     key: "list"
     restriction: "none"

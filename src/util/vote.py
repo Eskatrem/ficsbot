@@ -98,9 +98,8 @@ class Vote:
         self.votes = {}
         self.playerVotes = {}
 
-    def getbest(self):
+    def get_best(self):
         if not bool(self.votes): return
-
 
         _sortedList = sorted(self.votes, key=self.votes.get, reverse=True)
         _highest = self.votes[_sortedList[0]]
@@ -117,4 +116,4 @@ class Vote:
         return _voteResult
 
     def end(self):
-        self.callback(self.getbest())
+        self.callback(self.get_best())
