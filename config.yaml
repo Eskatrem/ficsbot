@@ -10,14 +10,14 @@ commands:
     key: "commands"
     restriction: "none"
     controller: "main.commands"
-    description: "Get a overview of possible commands"
+    description: "Get an overview of possible commands"
 
   - list:
     key: "list"
     restriction: "none"
     argRequired: true
     controller: "main.list"
-    description: "List members of various roles (e.g. captain, player, etc.)"
+    description: "List members of various lists (run lists command for possible lists)"
 
   - join:
     key: "join"
