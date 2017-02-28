@@ -45,23 +45,19 @@ pip install -r requirements.txt
 
 ### Run
 ```text
-FICS Bot.
+usage: ficsbot.py [-h] [--log-file LOGFILE] [--no-log] [--verbose] [--quiet]
+                  [--config-file CONFIG] [--version]
 
-Usage:
-  ./ficsbot
-  ./ficsbot [--quiet | --verbose] [--out=<file> | --no-output] [--config=<file>]
-  ./ficsbot [--config=<file>]
-  ./ficsbot --help
-  ./ficsbot --version
+Fics Bot
 
-Options:
-  -h --help        show this
-  -v --version     print version number
-  --out=<file>     specify log file [default: ficsbot.log]
-  --no-output      do not print to log file
-  -q --quiet       print less text
-  -V --verbose     print more text
-  --config=<file>  load specific config file [default: config.yaml]
+optional arguments:
+  -h, --help            show this help message and exit
+  --log-file LOGFILE    specify the log file
+  --no-log, -l          disable output in log file
+  --verbose, -v         print everything in console
+  --quiet, -q           print nothing in console
+  --config-file CONFIG  specify the configuration file
+  --version             print version number
 ```
 
 `ficsbot` is a commandline tool. With the provided options, you can change it's behaviour.
@@ -74,12 +70,12 @@ chmod +x ficsbot
 ```
 You can now run ficsbot just by typing
 ```commandline
-./ficsbot [--quiet | --verbose] [--out=<file> | --no-output] [--config=<file>]
+./ficsbot [--quiet | --verbose] [--log-file=<file> | --no-log] [--config-file=<file>]
 ```
 #### On Windows
 To run ficsbot on windows, just run the ficsbot python script in the `src/` directory:
 ```commandline
-python src/ficsbot.py [--quiet | --verbose] [--out=<file> | --no-output] [--config=<file>]
+python src/ficsbot.py [--quiet | --verbose] [--log-file=<file> | --no-log] [--config-file=<file>
 ```
 
 ## License
