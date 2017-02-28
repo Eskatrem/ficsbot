@@ -22,6 +22,7 @@ class Log:
     def error(self, message, tag="ficsbot"):
         _msg = self.transform(message, tag, "Error")
         if not self.quiet:
+        _msg = self.transform(message, tag, colored("Error", "red"))
             print _msg
 
         if not self.quiet_out:
@@ -30,6 +31,7 @@ class Log:
     def warn(self, message, tag="ficsbot"):
         _msg = self.transform(message, tag, "Warn")
         if not self.quiet:
+        _msg = self.transform(message, tag, colored("Warn", "yellow"))
             print _msg
 
         if not self.quiet_out:
@@ -38,6 +40,7 @@ class Log:
     def info(self, message, tag="ficsbot"):
         _msg = self.transform(message, tag, "Info")
         if not self.quiet and self.verbose:
+        _msg = self.transform(message, tag, colored("Info", "blue"))
             print _msg
 
         if not self.quiet_out:
